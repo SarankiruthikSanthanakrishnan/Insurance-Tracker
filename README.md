@@ -76,3 +76,15 @@ Day 8 – Hibernate & Spring Boot Foundations
 ✅ Hibernate vs JDBC comparison
 
 ✅ Why industries prefer Spring Boot for scalable enterprise apps
+
+Day 9 – Team Project: CRUD Web Application
+
+🚀 Built a CRUD Web Application using Spring Boot and Thymeleaf
+
+👥 Collaborated with my team, practicing team coordination & project management
+
+✅ Implemented Create, Read, Update, Delete operations with a structured backend
+
+✅ Connected Thymeleaf templates for dynamic rendering of data
+
+💡 Learned the importance of teamwork in real-world software development
