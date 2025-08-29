@@ -22,6 +22,7 @@
                 <th>Insurance Start Date</th>
                 <th>Insurance End Date</th>
                 <th>Insurance Status</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -33,13 +34,15 @@
                 <td th:text="${policy.startDate}"></td>
                 <td th:text="${policy.endDate}"></td>
                 <td th:text="${policy.status}"></td>
+                <td>
+                    <a th:href="@{'edit/'+${policy.policyId}}">Edit</a>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<!-- Bootstrap JS (optional, for interactivity) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

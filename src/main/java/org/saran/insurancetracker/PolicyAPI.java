@@ -5,12 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/api")
 public class PolicyAPI {
     @Autowired
     private PolicyService policyService;
@@ -22,18 +26,12 @@ public class PolicyAPI {
         return "InsuranceForm";
     }
 
-
-
     @PostMapping("/open")
-    public String newInsurance(Insurance insurance,Model model)
+    public String openInsurance(Model model,Insurance insurance)
     {
-        Insurance received = policyService.implementSave(insurance);
-
-        if(received!=null)
-            model.addAttribute("insurance","success");
-        else
-            model.addAttribute("insurance","failure");
-        return "redirect:/new";
+        System.out.println(insurance);
+        Insurance recieved = policyService.implementSave(insurance);
+        return "redirect:/api/view";
     }
     //Read Data
     @GetMapping("/view")
@@ -42,5 +40,17 @@ public class PolicyAPI {
         model.addAttribute("insurances",insurances);
         return "viewPolicy";
     }
+
+    //Edit Data using Primary key as Insurance ID
+    @GetMapping("/edit/{key}")
+    public String editPolicy(Model model, @PathVariable("key") int key) {
+        Optional<Insurance> insurance = policyService.findById(key);
+        if (insurance.isPresent()) {
+            model.addAttribute("Oldvalue", insurance.get());
+            return "editPolicy";
+        }
+        return "redirect:/api/view";
+    }
+
 
 }
