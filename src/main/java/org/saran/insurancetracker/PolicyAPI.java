@@ -51,6 +51,15 @@ public class PolicyAPI {
         }
         return "redirect:/api/view";
     }
-
+//Edit Data using Primary key as Insurance ID
+    @GetMapping("/delete/{key}")
+    public String deletePolicy(Model model, @PathVariable("key") int key) {
+        Optional<Insurance> insurance = policyService.findById(key);
+        if(insurance.isPresent()) {
+            model.addAttribute("Oldvalue", insurance.get());
+            return "deletePolicy";
+        }
+        return "redirect:/api/view";
+    }
 
 }
