@@ -22,5 +22,8 @@ public class PolicyService {
         return policyRemote.findById(id);
     }
 
-
+    public void deleteById(int key) {
+        policyRemote.deleteById(key);
+    }
 }
+
