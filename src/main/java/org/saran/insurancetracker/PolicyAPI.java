@@ -3,10 +3,7 @@ package org.saran.insurancetracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +14,14 @@ public class PolicyAPI {
     @Autowired
     private PolicyService policyService;
 
+    //Home Page
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
     // Add data
-    @GetMapping("/new")
+    @GetMapping("/create")
     public String newPolicy(Model model) {
         Insurance insurance = new Insurance();
         model.addAttribute("insurance", insurance);
@@ -66,4 +69,60 @@ public class PolicyAPI {
         policyService.deleteById(key);
         return "redirect:/api/view";
     }
+
+
+//    //based on Scheme Type
+//    @GetMapping("/view/types")
+//    public String readByTypes(Model model, @RequestParam String policytype) {
+//        List<Insurance> insurances = policyService.implementFindAllBySchemeType(policytype);
+//        model.addAttribute("insurances",insurances);
+//        return "viewPolicy";
+//    }
+//
+//    //Based on Amount
+//    @GetMapping("/view/amount")
+//    public String readByAmount(Model model, @RequestParam double amount1 ,@RequestParam double amount2) {
+//        List<Insurance> insurances = policyService.implementBasedPolicyAmount(amount1,amount2);
+//        model.addAttribute("insurances",insurances);
+//        return "viewPolicy";
+//    }
+    //Search based on value
+    @GetMapping("/view/search")
+    public String readBySearch(Model model, @RequestParam String name) {
+        List<Insurance> insurances = policyService.findValue(name);
+        model.addAttribute("insurances",insurances);
+        return "viewPolicy";
+
+    }
+    @GetMapping("/view/status")
+    public String readByStatus(Model model,
+                               @RequestParam(defaultValue = "All") String status) {
+        List<Insurance> insurances;
+
+        if ("All".equalsIgnoreCase(status)) {
+            insurances = policyService.findAll();
+        } else {
+            insurances = policyService.findStatus(status);
+        }
+
+        model.addAttribute("insurances", insurances);
+        model.addAttribute("status", status);
+        return "viewPolicy";
+    }
+    //sorting
+    @GetMapping("/view/sort")
+    public String sortPolicies(Model model, @RequestParam(defaultValue = "asc") String order) {
+        List<Insurance> insurances;
+        if (order.equals("desc")) {
+            insurances = policyService.getAllPoliciesSortedDesc();
+        } else {
+            insurances = policyService.getAllPoliciesSortedAsc();
+        }
+        model.addAttribute("insurances", insurances);
+        model.addAttribute("order", order);
+        return "viewPolicy";
+    }
+
+
+
 }

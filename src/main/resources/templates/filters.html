@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Filters</title>
+    <style>
+        .filter-section {
+            display: none;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<h1>Insurance Filters</h1>
+
+<!-- Select filter type -->
+<label for="filterSelect">Choose Filter:</label>
+<select id="filterSelect" onchange="showFilter()">
+    <option value="">-- Select --</option>
+    <option value="type">By Policy Type</option>
+    <option value="amount">By Premium Amount</option>
+    <option value="search">By Name/Type Search</option>
+</select>
+
+<form th:action="@{'/api/filter/types'}" th:method="get" id="filterType" class="filter-section">
+    <h3>Filter by Type</h3>
+    <input type="text" name="policytype" placeholder="Enter policy type">
+    <input type="submit" value="Submit">
+</form>
+
+<form th:action="@{'/api/filter/amount'}" th:method="get" id="filterAmount" class="filter-section">
+    <h3>Filter by Premium Amount</h3>
+    <input type="text" name="amount1" placeholder="Min Amount">
+    <input type="text" name="amount2" placeholder="Max Amount">
+    <input type="submit" value="Submit">
+</form>
+
+<form th:action="@{'/api/filter/search'}" th:method="get" id="filterSearch" class="filter-section">
+    <h3>Filter by Search</h3>
+    <input type="text" name="name" placeholder="Enter name or type">
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    function showFilter() {
+        document.querySelectorAll('.filter-section').forEach(value =>value.style.display = "none");
+
+        let selected = document.getElementById("filterSelect").value;
+        if (selected === "type") {
+            document.getElementById("filterType").style.display = "block";
+        } else if (selected === "amount") {
+            document.getElementById("filterAmount").style.display = "block";
+        } else if (selected === "search") {
+            document.getElementById("filterSearch").style.display = "block";
+        }
+    }
+</script>
+</body>
+</html>
