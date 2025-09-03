@@ -3,6 +3,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -12,8 +14,12 @@ public class Insurance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int policyId;
+    @NotNull(message = "Policy Number is Needed")
     private long policyNumber;
+    @NotNull(message = "Policy Name is Needed")
     private String policyName;
+    @NotNull(message = "Policy Type is Needed")
+    @Pattern(regexp = "^[A-Za-z ]{3,}$",message = "Invalid Policy type")
     private String policyType;
     private double premiumAmount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

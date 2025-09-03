@@ -1,10 +1,15 @@
 package org.saran.insurancetracker;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +64,7 @@ public class PolicyAPI {
         Optional<Insurance> insurance = policyService.findById(key);
         if (insurance.isPresent()) {
             model.addAttribute("Oldvalue", insurance.get());
-            return "deletePolicy"; // shows confirmation
+            return "deletePolicy";
         }
         return "redirect:/api/view";
     }
@@ -121,8 +126,6 @@ public class PolicyAPI {
         model.addAttribute("insurances", insurances);
         model.addAttribute("order", order);
         return "viewPolicy";
+
     }
-
-
-
-}
+    }
