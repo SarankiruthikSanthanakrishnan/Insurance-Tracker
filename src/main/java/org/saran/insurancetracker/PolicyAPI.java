@@ -18,6 +18,8 @@ import java.util.Optional;
 public class PolicyAPI {
     @Autowired
     private PolicyService policyService;
+    @Autowired
+    private PolicyRemote policyRemote;
 
     //Home Page
     @GetMapping("/")
@@ -26,12 +28,12 @@ public class PolicyAPI {
     }
 
     // Add data
-    @GetMapping("/create")
-    public String newPolicy(Model model) {
-        Insurance insurance = new Insurance();
-        model.addAttribute("insurance", insurance);
-        return "InsuranceForm";
-    }
+//    @GetMapping("/create")
+//    public String newPolicy(Model model) {
+//        Insurance insurance = new Insurance();
+//        model.addAttribute("insurance", insurance);
+//        return "InsuranceForm";
+//    }
 
     @PostMapping("/open")
     public String openInsurance(Model model, Insurance insurance) {
@@ -128,4 +130,10 @@ public class PolicyAPI {
         return "viewPolicy";
 
     }
+    @GetMapping("/create")
+    public String showNewInsuranceForm(Model model) {
+        model.addAttribute("insurance", new Insurance());
+        model.addAttribute("policyNames",policyRemote.findDistinctPolicyNames());
+        return "InsuranceForm";
     }
+}

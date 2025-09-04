@@ -23,5 +23,6 @@ public interface PolicyRemote extends JpaRepository<Insurance, Integer> {
     List<Insurance> orderByPolicyNameAsc();
     @Query(value = "SELECT * FROM insurance ORDER BY policy_name DESC", nativeQuery = true)
     List<Insurance> orderByPolicyNameDesc();
-
+    @Query("SELECT DISTINCT i.policyName FROM Insurance i")
+    List<String> findDistinctPolicyNames();
 }

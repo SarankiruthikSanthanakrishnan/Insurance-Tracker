@@ -56,6 +56,13 @@ public class PolicyService {
     }
 
 
+    public List<String> getDistinctPolicyNames() {
+        return policyRemote.findDistinctPolicyNames();
+    }
+
+
+
+
 
 
 

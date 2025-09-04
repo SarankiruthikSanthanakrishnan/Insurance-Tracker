@@ -30,7 +30,10 @@
                 <label class="form-label fw-semibold">Policy Name</label>
                 <div class="input-group">
                     <span class="input-group-text bg-success text-white"><i class="bi bi-file-earmark-text"></i></span>
-                    <input type="text" class="form-control" name="PolicyName" placeholder="Enter Policy Name">
+                    <select class="form-select" name="policyName" th:field="*{policyName}">
+                        <option value="" disabled selected>Select Policy Name</option>
+                        <option th:each="p : ${policyNames}" th:value="${p}" th:text="${p}"></option>
+                    </select>
                 </div>
             </div>
 
@@ -38,13 +41,13 @@
                 <label class="form-label fw-semibold">Policy Type</label>
                 <div class="input-group">
                     <span class="input-group-text bg-warning text-dark"><i class="bi bi-card-list"></i></span>
-                    <select class="form-select" name="PolicyType">
-                        <option selected disabled>Select One</option>
-                        <option>Personal</option>
-                        <option>Vehicle</option>
-                        <option>Travel</option>
-                        <option>Term</option>
-                        <option>Health</option>
+                    <select class="form-select" name="PolicyType" th:field="*{policyType}">
+                        <option value="" disabled selected>Select One</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Vehicle">Vehicle</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Term">Term</option>
+                        <option value="Health">Health</option>
                     </select>
                 </div>
             </div>
